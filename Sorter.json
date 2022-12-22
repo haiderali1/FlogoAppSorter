@@ -1,0 +1,1415 @@
+{
+    "imports": [
+        "github.com/project-flogo/flow",
+        "git.tibco.com/git/product/ipaas/wi-contrib.git/contributions/General/activity/mapper",
+        "github.com/project-flogo/flow/activity/subflow",
+        "git.tibco.com/git/product/ipaas/wi-contrib.git/contributions/General/activity/shareddata",
+        "git.tibco.com/git/product/ipaas/wi-contrib.git/contributions/General/activity/log",
+        "github.com/project-flogo/contrib/activity/actreturn",
+        "git.tibco.com/git/product/ipaas/wi-contrib.git/contributions/General/trigger/timer",
+        "github.com/project-flogo/contrib/function/array",
+        "github.com/project-flogo/contrib/function/string",
+        "github.com/project-flogo/contrib/function/json",
+        "git.tibco.com/git/product/ipaas/wi-contrib.git/function/utility",
+        "github.com/project-flogo/contrib/function/coerce"
+    ],
+    "name": "Sorter",
+    "description": "Sorter Application for getting complex data sorted",
+    "version": "1.0.0",
+    "type": "flogo:app",
+    "appModel": "1.1.1",
+    "tags": [
+        "tci-mon-solution"
+    ],
+    "triggers": [
+        {
+            "ref": "#timer",
+            "name": "tibco-wi-timer",
+            "description": "Simple Timer trigger",
+            "settings": {},
+            "id": "TimerTrigger",
+            "handlers": [
+                {
+                    "description": "Using  sample data in  mapper to showcase how the sorter works",
+                    "settings": {
+                        "Scheduler Options": "Timer",
+                        "Start Time": "2022-09-09T11:31:36.000Z",
+                        "Repeating": true,
+                        "Delayed Start": false,
+                        "Time Interval": 1,
+                        "Interval Unit": "Hour",
+                        "Cron Expression": "CRON_TZ=Asia/Calcutta * * * * *"
+                    },
+                    "action": {
+                        "ref": "github.com/project-flogo/flow",
+                        "settings": {
+                            "flowURI": "res://flow:SorterExample"
+                        }
+                    },
+                    "name": "SorterExample"
+                }
+            ]
+        }
+    ],
+    "resources": [
+        {
+            "id": "flow:SorterExample",
+            "data": {
+                "name": "SorterExample",
+                "description": "Using  sample data in  mapper to showcase how the sorter works",
+                "links": [
+                    {
+                        "id": 1,
+                        "from": "SampleData",
+                        "to": "Sorter",
+                        "type": "default"
+                    }
+                ],
+                "tasks": [
+                    {
+                        "id": "SampleData",
+                        "name": "SampleData",
+                        "description": "Mapper Activity",
+                        "activity": {
+                            "ref": "#mapper",
+                            "input": {
+                                "input": {
+                                    "mapping": {
+                                        "rootArray": [
+                                            {
+                                                "appId": "os44ceaecrqz6vscwgpyrbwqj7iwgqax",
+                                                "appName": "Sample-CI-V1-DEV",
+                                                "failure": 0,
+                                                "success": 1030
+                                            },
+                                            {
+                                                "appId": "uhcvaoee5p5dnvgtpkirdkr63gxbjtlo",
+                                                "appName": "Sample-AI-V1-DEV",
+                                                "failure": 0,
+                                                "success": 388
+                                            },
+                                            {
+                                                "appId": "bhiacb2gn6zgvn5lslfkwkbi45nishrn",
+                                                "appName": "Sample-DI-V1-DEV",
+                                                "failure": 0,
+                                                "success": 0
+                                            },
+                                            {
+                                                "appId": "hnuomtk6cqmqzwbmnnz6n3xvbj3rp5eu",
+                                                "appName": "Sample-EI-V1-DEV",
+                                                "failure": 0,
+                                                "success": 4
+                                            },
+                                            {
+                                                "appId": "sww7zzwgljewtxxy7yydtiqb74gwjtoe",
+                                                "appName": "Sample-FI-V1-DEV",
+                                                "failure": 0,
+                                                "success": 0
+                                            },
+                                            {
+                                                "appId": "pd5atavhbcc63gn3bevb3o2bauqkoqm4",
+                                                "appName": "Sample-GI-V1-DEV",
+                                                "failure": 0,
+                                                "success": 864
+                                            },
+                                            {
+                                                "appId": "jyqv75douamv2ieaogqxqtstpqmcwsio",
+                                                "appName": "Sample-HI-V1-DEV",
+                                                "failure": 0,
+                                                "success": 27
+                                            },
+                                            {
+                                                "appId": "dbo6easmljtqx2yc6rwwrtosfy3hmv34",
+                                                "appName": "Sample-I-V1-DEV",
+                                                "failure": 0,
+                                                "success": 0
+                                            },
+                                            {
+                                                "appId": "3jzmm3ibiaj2mtuxlijdgoscclskmuju",
+                                                "appName": "Sample-JI-V1-DEV",
+                                                "failure": 0,
+                                                "success": 0
+                                            },
+                                            {
+                                                "appId": "3hrkc4ycpsgeimnt2geinj3bjlzpvrcf",
+                                                "appName": "Sample-KI-V1-DEV",
+                                                "failure": 0,
+                                                "success": 790
+                                            }
+                                        ]
+                                    }
+                                }
+                            },
+                            "schemas": {
+                                "input": {
+                                    "input": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"rootArray\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{}}}}}",
+                                        "fe_metadata": "{\n    \"rootArray\" : [\n    {\n        \n    }\n    ]}"
+                                    }
+                                },
+                                "output": {
+                                    "output": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"rootArray\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{}}}}}",
+                                        "fe_metadata": "{\n  \"rootArray\": [\n    {}\n  ]\n}"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "Sorter",
+                        "name": "Sorter",
+                        "description": "Simple SubFlow Activity",
+                        "activity": {
+                            "ref": "#subflow",
+                            "settings": {
+                                "flowURI": "res://flow:Sorter"
+                            },
+                            "input": {
+                                "root": {
+                                    "mapping": {
+                                        "rootArray": {
+                                            "@foreach($activity[SampleData].output.rootArray, rootArray)": {
+                                                "=": "$loop"
+                                            }
+                                        },
+                                        "elementToSortOver": "success"
+                                    }
+                                }
+                            },
+                            "schemas": {
+                                "input": {
+                                    "input": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"root\":{\"type\":\"object\",\"properties\":{\"rootArray\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{}}},\"elementToSortOver\":{\"type\":\"string\"}}}}}",
+                                        "fe_metadata": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"root\":{\"type\":\"object\",\"properties\":{\"rootArray\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{}}},\"elementToSortOver\":{\"type\":\"string\"}}}}}"
+                                    }
+                                },
+                                "output": {
+                                    "output": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"root\":{\"type\":\"object\",\"properties\":{\"rootArray\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{}}}}}}}",
+                                        "fe_metadata": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"root\":{\"type\":\"object\",\"properties\":{\"rootArray\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{}}}}}}}"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ],
+                "metadata": {
+                    "input": [],
+                    "output": [],
+                    "fe_metadata": {}
+                }
+            }
+        },
+        {
+            "id": "flow:GetLargest",
+            "data": {
+                "name": "GetLargest",
+                "description": "Get Largest Element from an Array",
+                "links": [
+                    {
+                        "id": 1,
+                        "from": "SetInitial",
+                        "to": "Mapper",
+                        "type": "default"
+                    },
+                    {
+                        "id": 2,
+                        "from": "Mapper",
+                        "to": "GetLargestSubflow",
+                        "type": "default"
+                    },
+                    {
+                        "id": 3,
+                        "from": "GetLargestSubflow",
+                        "to": "GetLargest",
+                        "type": "default"
+                    },
+                    {
+                        "id": 4,
+                        "from": "GetLargest",
+                        "to": "LogMessage",
+                        "type": "default"
+                    },
+                    {
+                        "id": 5,
+                        "from": "LogMessage",
+                        "to": "DeleteLargestFromCache",
+                        "type": "default"
+                    },
+                    {
+                        "id": 6,
+                        "from": "DeleteLargestFromCache",
+                        "to": "Return",
+                        "type": "default"
+                    }
+                ],
+                "tasks": [
+                    {
+                        "id": "SetInitial",
+                        "name": "SetInitial",
+                        "description": "Enable sharing of data within or across flows in the application",
+                        "activity": {
+                            "ref": "#shareddata",
+                            "settings": {
+                                "scope": "Application",
+                                "operation": "SET",
+                                "type": "object",
+                                "objectSchema": "{\n    \"element\" : {},\n    \"index\" : 1,\n    \"largest\" : 1\n}"
+                            },
+                            "input": {
+                                "key": "largestCompare",
+                                "input": {
+                                    "mapping": {
+                                        "data": {
+                                            "largest": "=json.path(string.concat(\"$loop.\",$flow.root.elementToUse),$flow.root.rootArray[0])",
+                                            "index": 0,
+                                            "element": "=$flow.root.rootArray[0]"
+                                        }
+                                    }
+                                }
+                            },
+                            "schemas": {
+                                "input": {
+                                    "input": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"data\":{\"type\":\"object\",\"properties\":{\"element\":{\"type\":\"object\",\"properties\":{}},\"index\":{\"type\":\"number\"},\"largest\":{\"type\":\"number\"}}}}}",
+                                        "fe_metadata": "{\"data\":{\n    \"element\" : {},\n    \"index\" : 1,\n    \"largest\" : 1\n}}"
+                                    }
+                                },
+                                "output": {
+                                    "output": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"type\":\"object\",\"properties\":{\"exist\":{\"type\":\"boolean\"},\"data\":{\"type\":\"string\"}}}",
+                                        "fe_metadata": "{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"type\":\"object\",\"properties\":{\"exist\":{\"type\":\"boolean\"},\"data\":{\"type\":\"string\"}}}"
+                                    }
+                                },
+                                "settings": {
+                                    "objectSchema": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"element\":{\"type\":\"object\",\"properties\":{}},\"index\":{\"type\":\"number\"},\"largest\":{\"type\":\"number\"}}}",
+                                        "fe_metadata": "{\n    \"element\" : {},\n    \"index\" : 1,\n    \"largest\" : 1\n}"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "Mapper",
+                        "name": "Mapper",
+                        "description": "Mapper Activity",
+                        "type": "iterator",
+                        "settings": {
+                            "iterate": "=$flow.root.rootArray",
+                            "accumulate": false
+                        },
+                        "activity": {
+                            "ref": "#mapper",
+                            "input": {
+                                "input": {
+                                    "mapping": {
+                                        "smallestIndex": "=$iteration[index]",
+                                        "smallest": "=json.path(string.concat(\"$loop.\",$flow.root.elementToUse),$iteration[value])",
+                                        "rootElement": [
+                                            {
+                                                "appId": "e72uldaqkwafzn7lwjiqmot67iejros6",
+                                                "appName": "ActionCenter-CI-V1-DEV",
+                                                "failure": 0,
+                                                "success": 0
+                                            },
+                                            {
+                                                "appId": "4qw6kxuugo6wzkgg2chzkdpwwgwa3kbz",
+                                                "appName": "BRAZILAP-C1-V1-DEV",
+                                                "failure": 0,
+                                                "success": 0
+                                            },
+                                            {
+                                                "appId": "pg4h5gvbpgovqzpserwnusi4fzfcmyax",
+                                                "appName": "CCS-CI-V1-DEV",
+                                                "failure": 0,
+                                                "success": 0
+                                            },
+                                            {
+                                                "appId": "e4y7fdpgzs7ahenxih23eb4ultou6c3f",
+                                                "appName": "CCS-CRX-CI-V1-DEV",
+                                                "failure": 0,
+                                                "success": 0
+                                            },
+                                            {
+                                                "appId": "ybnv2y3ge4hajmb56ux426fovg7gw6xd",
+                                                "appName": "CCS-GCR-CI-V1-DEV",
+                                                "failure": 0,
+                                                "success": 18
+                                            },
+                                            {
+                                                "appId": "vudll4i4wtktc2wx6lyddjoqfar6gha3",
+                                                "appName": "CLM-CI-V1-DEV",
+                                                "failure": 0,
+                                                "success": 0
+                                            },
+                                            {
+                                                "appId": "lib33y47wihnviapbpe642jczvm4rrnt",
+                                                "appName": "Docusign-CI-V1-DEV",
+                                                "failure": 0,
+                                                "success": 9
+                                            },
+                                            {
+                                                "appId": "gorrgl7zs6ftcv4lmkkfleemaqxkiqsx",
+                                                "appName": "EBS-CI-V1-DEV",
+                                                "failure": 0,
+                                                "success": 2
+                                            },
+                                            {
+                                                "appId": "os44ceaecrqz6vscwgpyrbwqj7iwgqax",
+                                                "appName": "ENVOY-CI-V1-DEV",
+                                                "failure": 0,
+                                                "success": 1208
+                                            },
+                                            {
+                                                "appId": "uhcvaoee5p5dnvgtpkirdkr63gxbjtlo",
+                                                "appName": "GOPM-CI-V1-DEV",
+                                                "failure": 0,
+                                                "success": 601
+                                            },
+                                            {
+                                                "appId": "bhiacb2gn6zgvn5lslfkwkbi45nishrn",
+                                                "appName": "HCP-CI-V1-DEV",
+                                                "failure": 0,
+                                                "success": 0
+                                            },
+                                            {
+                                                "appId": "hnuomtk6cqmqzwbmnnz6n3xvbj3rp5eu",
+                                                "appName": "IAM-CI-V1-DEV",
+                                                "failure": 0,
+                                                "success": 4
+                                            },
+                                            {
+                                                "appId": "sww7zzwgljewtxxy7yydtiqb74gwjtoe",
+                                                "appName": "LMS-CI-V1-DEV",
+                                                "failure": 0,
+                                                "success": 0
+                                            },
+                                            {
+                                                "appId": "pd5atavhbcc63gn3bevb3o2bauqkoqm4",
+                                                "appName": "MDAS-CI-V1-DEV",
+                                                "failure": 0,
+                                                "success": 1182
+                                            },
+                                            {
+                                                "appId": "jyqv75douamv2ieaogqxqtstpqmcwsio",
+                                                "appName": "MDAS-PATIENT-CI-V1-DEV",
+                                                "failure": 0,
+                                                "success": 29
+                                            },
+                                            {
+                                                "appId": "dbo6easmljtqx2yc6rwwrtosfy3hmv34",
+                                                "appName": "MFT-CI-V1-DEV",
+                                                "failure": 4,
+                                                "success": 4
+                                            },
+                                            {
+                                                "appId": "3jzmm3ibiaj2mtuxlijdgoscclskmuju",
+                                                "appName": "Scout-CI-V1-DEV",
+                                                "failure": 0,
+                                                "success": 0
+                                            },
+                                            {
+                                                "appId": "3hrkc4ycpsgeimnt2geinj3bjlzpvrcf",
+                                                "appName": "SharedServices-CI-V1-DEV",
+                                                "failure": 0,
+                                                "success": 988
+                                            },
+                                            {
+                                                "appId": "xk3omypm32prjr5qoogc2p2luc5ebyyu",
+                                                "appName": "VeevaEvents-CI-V1-DEV",
+                                                "failure": 0,
+                                                "success": 0
+                                            },
+                                            {
+                                                "appId": "u2z6zk7ve2ziarrzevriqjz3i75qzdl2",
+                                                "appName": "WORKERPROFILE-C1-V1-DEV",
+                                                "failure": 0,
+                                                "success": 0
+                                            }
+                                        ],
+                                        "elementToUse": "success"
+                                    }
+                                }
+                            },
+                            "schemas": {
+                                "input": {
+                                    "input": {
+                                        "type": "json",
+                                        "value": "{\n    \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n    \"type\": \"object\",\n    \"properties\": {\n        \"rootElement\": {\n            \"type\": \"array\",\n            \"items\": {\n                \"type\": \"object\",\n                \"properties\": {}\n            }\n        },\n        \"elementToUse\": {\n            \"type\": \"string\"\n        },\n        \"smallestIndex\": {\n            \"type\": \"string\"\n        },\n        \"smallest\": {\n                \"type\": \"object\",\n                \"properties\": {}\n            }\n    }\n}",
+                                        "fe_metadata": "{\n    \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n    \"type\": \"object\",\n    \"properties\": {\n        \"rootElement\": {\n            \"type\": \"array\",\n            \"items\": {\n                \"type\": \"object\",\n                \"properties\": {}\n            }\n        },\n        \"elementToUse\": {\n            \"type\": \"string\"\n        },\n        \"smallestIndex\": {\n            \"type\": \"string\"\n        },\n        \"smallest\": {\n                \"type\": \"object\",\n                \"properties\": {}\n            }\n    }\n}"
+                                    }
+                                },
+                                "output": {
+                                    "output": {
+                                        "type": "json",
+                                        "value": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"rootElement\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {}\n      }\n    },\n    \"elementToUse\": {\n      \"type\": \"string\"\n    },\n    \"smallestIndex\": {\n      \"type\": \"string\"\n    },\n    \"smallest\": {\n      \"type\": \"object\",\n      \"properties\": {}\n    }\n  }\n}",
+                                        "fe_metadata": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"rootElement\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {}\n      }\n    },\n    \"elementToUse\": {\n      \"type\": \"string\"\n    },\n    \"smallestIndex\": {\n      \"type\": \"string\"\n    },\n    \"smallest\": {\n      \"type\": \"object\",\n      \"properties\": {}\n    }\n  }\n}"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "GetLargestSubflow",
+                        "name": "GetLargestSubflow",
+                        "description": "Simple SubFlow Activity",
+                        "type": "iterator",
+                        "settings": {
+                            "iterate": "=$flow.root.rootArray",
+                            "accumulate": false
+                        },
+                        "activity": {
+                            "ref": "#subflow",
+                            "settings": {
+                                "flowURI": "res://flow:GetLargestSubprocess"
+                            },
+                            "input": {
+                                "element": "=$iteration[value]",
+                                "index": "=$iteration[index]",
+                                "elementToCompare": "=$flow.root.elementToUse"
+                            },
+                            "schemas": {
+                                "input": {
+                                    "input": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"element\":{\"type\":\"object\",\"properties\":{}},\"index\":{\"type\":\"number\"},\"elementToCompare\":{\"type\":\"string\"}}}",
+                                        "fe_metadata": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"element\":{\"type\":\"object\",\"properties\":{}},\"index\":{\"type\":\"number\"},\"elementToCompare\":{\"type\":\"string\"}}}"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "GetLargest",
+                        "name": "GetLargest",
+                        "description": "Enable sharing of data within or across flows in the application",
+                        "activity": {
+                            "ref": "#shareddata",
+                            "settings": {
+                                "scope": "Application",
+                                "operation": "GET",
+                                "type": "object",
+                                "objectSchema": "{\n    \"element\" : {},\n    \"index\" : 1,\n    \"largest\" : 1\n}"
+                            },
+                            "input": {
+                                "key": "largestCompare"
+                            },
+                            "schemas": {
+                                "input": {
+                                    "input": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"data\":{\"type\":\"object\",\"properties\":{\"element\":{\"type\":\"object\",\"properties\":{}},\"index\":{\"type\":\"number\"},\"largest\":{\"type\":\"number\"}}}}}",
+                                        "fe_metadata": "{\"data\":{\n    \"element\" : {},\n    \"index\" : 1,\n    \"largest\" : 1\n}}"
+                                    }
+                                },
+                                "output": {
+                                    "output": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"exist\":{\"type\":\"boolean\"},\"data\":{\"type\":\"object\",\"properties\":{\"element\":{\"type\":\"object\",\"properties\":{}},\"index\":{\"type\":\"number\"},\"largest\":{\"type\":\"number\"}}}}}",
+                                        "fe_metadata": "{ \"exist\":false, \"data\":{\n    \"element\" : {},\n    \"index\" : 1,\n    \"largest\" : 1\n}}"
+                                    }
+                                },
+                                "settings": {
+                                    "objectSchema": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"element\":{\"type\":\"object\",\"properties\":{}},\"index\":{\"type\":\"number\"},\"largest\":{\"type\":\"number\"}}}",
+                                        "fe_metadata": "{\n    \"element\" : {},\n    \"index\" : 1,\n    \"largest\" : 1\n}"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "LogMessage",
+                        "name": "LogMessage",
+                        "description": "Simple Log Message Activity",
+                        "activity": {
+                            "ref": "#log",
+                            "input": {
+                                "Log Level": "INFO",
+                                "flowInfo": false,
+                                "message": "=string.concat(\"The ultimate largest is \",utility.renderJSON($activity[GetLargest].output.data, false))"
+                            }
+                        }
+                    },
+                    {
+                        "id": "DeleteLargestFromCache",
+                        "name": "DeleteLargestFromCache",
+                        "description": "Enable sharing of data within or across flows in the application",
+                        "activity": {
+                            "ref": "#shareddata",
+                            "settings": {
+                                "scope": "Application",
+                                "operation": "DELETE",
+                                "type": "string",
+                                "objectSchema": ""
+                            },
+                            "input": {
+                                "key": "largestCompare"
+                            },
+                            "schemas": {
+                                "output": {
+                                    "output": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"type\":\"object\",\"properties\":{\"exist\":{\"type\":\"boolean\"}}}",
+                                        "fe_metadata": "{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"type\":\"object\",\"properties\":{\"exist\":{\"type\":\"boolean\"}}}"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "Return",
+                        "name": "Return",
+                        "description": "Simple Return Activity",
+                        "activity": {
+                            "ref": "#actreturn",
+                            "settings": {
+                                "mappings": {
+                                    "element": "=$activity[GetLargest].output.data.element",
+                                    "index": "=$activity[GetLargest].output.data.index",
+                                    "largest": "=$activity[GetLargest].output.data.largest"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "metadata": {
+                    "input": [
+                        {
+                            "name": "root",
+                            "type": "object",
+                            "schema": {
+                                "type": "json",
+                                "value": "{\"rootArray\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{}}},\"elementToUse\":{\"type\":\"string\"}}"
+                            }
+                        }
+                    ],
+                    "output": [
+                        {
+                            "name": "element",
+                            "type": "object"
+                        },
+                        {
+                            "name": "index",
+                            "type": "float64"
+                        },
+                        {
+                            "name": "largest",
+                            "type": "float64"
+                        }
+                    ],
+                    "fe_metadata": {
+                        "input": "{\n    \"root\": {\n     \"rootArray\": [\n         {\n             \n         }\n         ],\n    \"elementToUse\": \"\"     \n    }\n}",
+                        "output": "{\n    \"element\" : {},\n    \"index\" : 1,\n    \"largest\" : 1\n}"
+                    }
+                }
+            }
+        },
+        {
+            "id": "flow:GetLargestSubprocess",
+            "data": {
+                "name": "GetLargestSubprocess",
+                "description": "the sub process loop used by GetLarrgest to get the largest data",
+                "links": [
+                    {
+                        "id": 1,
+                        "from": "GetLargest",
+                        "to": "LogMessage",
+                        "type": "default"
+                    },
+                    {
+                        "id": 2,
+                        "from": "LogMessage",
+                        "to": "SetLargest",
+                        "type": "default"
+                    }
+                ],
+                "tasks": [
+                    {
+                        "id": "GetLargest",
+                        "name": "GetLargest",
+                        "description": "Enable sharing of data within or across flows in the application",
+                        "activity": {
+                            "ref": "#shareddata",
+                            "settings": {
+                                "scope": "Application",
+                                "operation": "GET",
+                                "type": "object",
+                                "objectSchema": "{\n    \"element\" : {},\n    \"index\" : 1,\n    \"largest\" : 1\n}"
+                            },
+                            "input": {
+                                "key": "largestCompare"
+                            },
+                            "schemas": {
+                                "output": {
+                                    "output": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"exist\":{\"type\":\"boolean\"},\"data\":{\"type\":\"object\",\"properties\":{\"element\":{\"type\":\"object\",\"properties\":{}},\"index\":{\"type\":\"number\"},\"largest\":{\"type\":\"number\"}}}}}",
+                                        "fe_metadata": "{ \"exist\":false, \"data\":{\n    \"element\" : {},\n    \"index\" : 1,\n    \"largest\" : 1\n}}"
+                                    }
+                                },
+                                "settings": {
+                                    "objectSchema": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"element\":{\"type\":\"object\",\"properties\":{}},\"index\":{\"type\":\"number\"},\"largest\":{\"type\":\"number\"}}}",
+                                        "fe_metadata": "{\n    \"element\" : {},\n    \"index\" : 1,\n    \"largest\" : 1\n}"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "LogMessage",
+                        "name": "LogMessage",
+                        "description": "Simple Log Message Activity",
+                        "activity": {
+                            "ref": "#log",
+                            "input": {
+                                "Log Level": "INFO",
+                                "flowInfo": false,
+                                "message": "=string.concat(\"The largest details is \",utility.renderJSON($activity[GetLargest].output.data, false))"
+                            }
+                        }
+                    },
+                    {
+                        "id": "SetLargest",
+                        "name": "SetLargest",
+                        "description": "Enable sharing of data within or across flows in the application",
+                        "activity": {
+                            "ref": "#shareddata",
+                            "settings": {
+                                "scope": "Application",
+                                "operation": "SET",
+                                "type": "object",
+                                "objectSchema": "{\n    \"element\" : {},\n    \"index\" : 1,\n    \"largest\" : 1\n}"
+                            },
+                            "input": {
+                                "key": "largestCompare",
+                                "input": {
+                                    "mapping": {
+                                        "data": {
+                                            "element": "=coerce.toInt(json.path(string.concat(\"$loop.\",$flow.elementToCompare),$flow.element)) > $activity[GetLargest].output.data.largest ? $flow.element : $activity[GetLargest].output.data.element",
+                                            "index": "=coerce.toInt(json.path(string.concat(\"$loop.\",$flow.elementToCompare),$flow.element)) > $activity[GetLargest].output.data.largest ? $flow.index : $activity[GetLargest].output.data.index",
+                                            "largest": "=coerce.toInt(json.path(string.concat(\"$loop.\",$flow.elementToCompare),$flow.element)) > $activity[GetLargest].output.data.largest ? coerce.toInt(json.path(string.concat(\"$loop.\",$flow.elementToCompare),$flow.element)) : $activity[GetLargest].output.data.largest"
+                                        }
+                                    }
+                                }
+                            },
+                            "schemas": {
+                                "input": {
+                                    "input": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"data\":{\"type\":\"object\",\"properties\":{\"element\":{\"type\":\"object\",\"properties\":{}},\"index\":{\"type\":\"number\"},\"largest\":{\"type\":\"number\"}}}}}",
+                                        "fe_metadata": "{\"data\":{\n    \"element\" : {},\n    \"index\" : 1,\n    \"largest\" : 1\n}}"
+                                    }
+                                },
+                                "output": {
+                                    "output": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"exist\":{\"type\":\"boolean\"},\"data\":{\"type\":\"object\",\"properties\":{\"element\":{\"type\":\"object\",\"properties\":{}},\"index\":{\"type\":\"number\"},\"largest\":{\"type\":\"number\"}}}}}",
+                                        "fe_metadata": "{ \"exist\":false, \"data\":{\n    \"element\" : {},\n    \"index\" : 1,\n    \"largest\" : 1\n}}"
+                                    }
+                                },
+                                "settings": {
+                                    "objectSchema": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"element\":{\"type\":\"object\",\"properties\":{}},\"index\":{\"type\":\"number\"},\"largest\":{\"type\":\"number\"}}}",
+                                        "fe_metadata": "{\n    \"element\" : {},\n    \"index\" : 1,\n    \"largest\" : 1\n}"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ],
+                "metadata": {
+                    "input": [
+                        {
+                            "name": "element",
+                            "type": "object"
+                        },
+                        {
+                            "name": "index",
+                            "type": "float64"
+                        },
+                        {
+                            "name": "elementToCompare",
+                            "type": "string"
+                        }
+                    ],
+                    "output": [],
+                    "fe_metadata": {
+                        "input": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"element\":{\"type\":\"object\",\"properties\":{}},\"index\":{\"type\":\"number\"},\"elementToCompare\":{\"type\":\"string\"}}}"
+                    }
+                }
+            }
+        },
+        {
+            "id": "flow:SorterSubProcess",
+            "data": {
+                "name": "SorterSubProcess",
+                "description": "The Loop process called by the sorter which gets the largest data and puts it first",
+                "links": [
+                    {
+                        "id": 1,
+                        "from": "GetArray",
+                        "to": "GetLargest",
+                        "type": "default"
+                    },
+                    {
+                        "id": 2,
+                        "from": "GetLargest",
+                        "to": "LogMessage",
+                        "type": "default"
+                    },
+                    {
+                        "id": 3,
+                        "from": "LogMessage",
+                        "to": "GetFirstElement",
+                        "type": "default"
+                    },
+                    {
+                        "id": 4,
+                        "from": "GetFirstElement",
+                        "to": "SetArray",
+                        "type": "default"
+                    },
+                    {
+                        "id": 5,
+                        "from": "SetArray",
+                        "to": "GetAfterSet",
+                        "type": "default"
+                    },
+                    {
+                        "id": 6,
+                        "from": "GetAfterSet",
+                        "to": "CopyOfLogMessage",
+                        "type": "default"
+                    }
+                ],
+                "tasks": [
+                    {
+                        "id": "GetArray",
+                        "name": "GetArray",
+                        "description": "Enable sharing of data within or across flows in the application",
+                        "activity": {
+                            "ref": "#shareddata",
+                            "settings": {
+                                "scope": "Application",
+                                "operation": "GET",
+                                "type": "object",
+                                "objectSchema": "{\n    \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n    \"type\": \"object\",\n    \"properties\": {\n        \"root\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"rootArray\": {\n                    \"type\": \"array\",\n                    \"items\": {\n                        \"type\": \"object\",\n                        \"properties\": {}\n                    }\n                }\n            }\n        }\n    }\n}"
+                            },
+                            "input": {
+                                "key": "MyArray"
+                            },
+                            "schemas": {
+                                "input": {
+                                    "input": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"type\":\"object\",\"properties\":{\"data\":{\"type\":\"object\",\"properties\":{\"root\":{\"type\":\"object\",\"properties\":{\"rootArray\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{}}}}}}}}}",
+                                        "fe_metadata": "{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"type\":\"object\",\"properties\":{\"data\":{\"type\":\"object\",\"properties\":{\"root\":{\"type\":\"object\",\"properties\":{\"rootArray\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{}}}}}}}}}"
+                                    }
+                                },
+                                "output": {
+                                    "output": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"type\":\"object\",\"properties\":{\"exist\":{\"type\":\"boolean\"},\"data\":{\"type\":\"object\",\"properties\":{\"root\":{\"type\":\"object\",\"properties\":{\"rootArray\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{}}}}}}}}}",
+                                        "fe_metadata": "{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"type\":\"object\",\"properties\":{\"exist\":{\"type\":\"boolean\"},\"data\":{\"type\":\"object\",\"properties\":{\"root\":{\"type\":\"object\",\"properties\":{\"rootArray\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{}}}}}}}}}"
+                                    }
+                                },
+                                "settings": {
+                                    "objectSchema": {
+                                        "type": "json",
+                                        "value": "{\n    \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n    \"type\": \"object\",\n    \"properties\": {\n        \"root\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"rootArray\": {\n                    \"type\": \"array\",\n                    \"items\": {\n                        \"type\": \"object\",\n                        \"properties\": {}\n                    }\n                }\n            }\n        }\n    }\n}",
+                                        "fe_metadata": "{\n    \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n    \"type\": \"object\",\n    \"properties\": {\n        \"root\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"rootArray\": {\n                    \"type\": \"array\",\n                    \"items\": {\n                        \"type\": \"object\",\n                        \"properties\": {}\n                    }\n                }\n            }\n        }\n    }\n}"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "GetLargest",
+                        "name": "GetLargest",
+                        "description": "Simple SubFlow Activity",
+                        "activity": {
+                            "ref": "#subflow",
+                            "settings": {
+                                "flowURI": "res://flow:GetLargest"
+                            },
+                            "input": {
+                                "root": {
+                                    "mapping": {
+                                        "rootArray": "=array.slice($activity[GetArray].output.data.root.rootArray, $flow.root.myIndex, array.count($activity[GetArray].output.data.root.rootArray))",
+                                        "elementToUse": "=$flow.root.elementToSortOver"
+                                    }
+                                }
+                            },
+                            "schemas": {
+                                "input": {
+                                    "input": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"root\":{\"type\":\"object\",\"properties\":{\"rootArray\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{}}},\"elementToUse\":{\"type\":\"string\"}}}}}",
+                                        "fe_metadata": "{\n    \"root\": {\n     \"rootArray\": [\n         {\n             \n         }\n         ],\n    \"elementToUse\": \"\"     \n    }\n}"
+                                    }
+                                },
+                                "output": {
+                                    "output": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"element\":{\"type\":\"object\",\"properties\":{}},\"index\":{\"type\":\"number\"},\"largest\":{\"type\":\"number\"}}}",
+                                        "fe_metadata": "{\n    \"element\" : {},\n    \"index\" : 1,\n    \"largest\" : 1\n}"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "LogMessage",
+                        "name": "LogMessage",
+                        "description": "Simple Log Message Activity",
+                        "activity": {
+                            "ref": "#log",
+                            "input": {
+                                "Log Level": "INFO",
+                                "flowInfo": false,
+                                "message": "=string.concat(\"The length of array at get\", coerce.toString(array.count($activity[GetArray].output.data.root.rootArray)))"
+                            }
+                        }
+                    },
+                    {
+                        "id": "GetFirstElement",
+                        "name": "GetFirstElement",
+                        "description": "Mapper Activity",
+                        "activity": {
+                            "ref": "#mapper",
+                            "input": {
+                                "input": {
+                                    "mapping": {
+                                        "element": "=$activity[GetArray].output.data.root.rootArray[$flow.root.myIndex]"
+                                    }
+                                }
+                            },
+                            "schemas": {
+                                "input": {
+                                    "input": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"element\":{\"type\":\"object\",\"properties\":{}}}}",
+                                        "fe_metadata": "{\n    \"element\" : {}\n}"
+                                    }
+                                },
+                                "output": {
+                                    "output": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"element\":{\"type\":\"object\",\"properties\":{}}}}",
+                                        "fe_metadata": "{\n  \"element\": {}\n}"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "SetArray",
+                        "name": "SetArray",
+                        "description": "Enable sharing of data within or across flows in the application",
+                        "activity": {
+                            "ref": "#shareddata",
+                            "settings": {
+                                "scope": "Application",
+                                "operation": "SET",
+                                "type": "object",
+                                "objectSchema": "{\n    \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n    \"type\": \"object\",\n    \"properties\": {\n        \"root\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"rootArray\": {\n                    \"type\": \"array\",\n                    \"items\": {\n                        \"type\": \"object\",\n                        \"properties\": {}\n                    }\n                }\n            }\n        }\n    }\n}"
+                            },
+                            "input": {
+                                "key": "MyArray",
+                                "input": {
+                                    "mapping": {
+                                        "data": {
+                                            "root": {
+                                                "@conditional": [
+                                                    {
+                                                        "$flow.root.myIndex == 0": {
+                                                            "rootArray": "=$flow.root.myIndex == $activity[GetLargest].index ? array.forEach($activity[GetArray].output.data.root.rootArray, \"rootArray\") : array.merge(array.create($activity[GetLargest].element),array.slice($activity[GetArray].output.data.root.rootArray, 1, $activity[GetLargest].index),array.create($activity[GetFirstElement].output.element),array.slice($activity[GetArray].output.data.root.rootArray,$activity[GetLargest].index+1,array.count($activity[GetArray].output.data.root.rootArray)))"
+                                                        }
+                                                    },
+                                                    {
+                                                        "$activity[GetLargest].index == 0": {
+                                                            "rootArray": {
+                                                                "@foreach($activity[GetArray].output.data.root.rootArray, rootArray)": {
+                                                                    "=": "$loop"
+                                                                }
+                                                            }
+                                                        }
+                                                    },
+                                                    {
+                                                        "@otherwise": {
+                                                            "rootArray": "=array.merge(array.slice($activity[GetArray].output.data.root.rootArray,0,$flow.root.myIndex), array.create($activity[GetLargest].element),array.slice($activity[GetArray].output.data.root.rootArray,$flow.root.myIndex + 1, $activity[GetLargest].index+$flow.root.myIndex),array.create($activity[GetFirstElement].output.element),array.slice($activity[GetArray].output.data.root.rootArray,$activity[GetLargest].index+$flow.root.myIndex+1,array.count($activity[GetArray].output.data.root.rootArray)))"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "schemas": {
+                                "input": {
+                                    "input": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"type\":\"object\",\"properties\":{\"data\":{\"type\":\"object\",\"properties\":{\"root\":{\"type\":\"object\",\"properties\":{\"rootArray\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{}}}}}}}}}",
+                                        "fe_metadata": "{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"type\":\"object\",\"properties\":{\"data\":{\"type\":\"object\",\"properties\":{\"root\":{\"type\":\"object\",\"properties\":{\"rootArray\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{}}}}}}}}}"
+                                    }
+                                },
+                                "output": {
+                                    "output": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"type\":\"object\",\"properties\":{\"exist\":{\"type\":\"boolean\"},\"data\":{\"type\":\"string\"}}}",
+                                        "fe_metadata": "{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"type\":\"object\",\"properties\":{\"exist\":{\"type\":\"boolean\"},\"data\":{\"type\":\"string\"}}}"
+                                    }
+                                },
+                                "settings": {
+                                    "objectSchema": {
+                                        "type": "json",
+                                        "value": "{\n    \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n    \"type\": \"object\",\n    \"properties\": {\n        \"root\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"rootArray\": {\n                    \"type\": \"array\",\n                    \"items\": {\n                        \"type\": \"object\",\n                        \"properties\": {}\n                    }\n                }\n            }\n        }\n    }\n}",
+                                        "fe_metadata": "{\n    \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n    \"type\": \"object\",\n    \"properties\": {\n        \"root\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"rootArray\": {\n                    \"type\": \"array\",\n                    \"items\": {\n                        \"type\": \"object\",\n                        \"properties\": {}\n                    }\n                }\n            }\n        }\n    }\n}"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "GetAfterSet",
+                        "name": "GetAfterSet",
+                        "description": "Enable sharing of data within or across flows in the application",
+                        "activity": {
+                            "ref": "#shareddata",
+                            "settings": {
+                                "scope": "Application",
+                                "operation": "GET",
+                                "type": "object",
+                                "objectSchema": "{\n    \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n    \"type\": \"object\",\n    \"properties\": {\n        \"root\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"rootArray\": {\n                    \"type\": \"array\",\n                    \"items\": {\n                        \"type\": \"object\",\n                        \"properties\": {}\n                    }\n                }\n            }\n        }\n    }\n}"
+                            },
+                            "input": {
+                                "key": "MyArray"
+                            },
+                            "schemas": {
+                                "input": {
+                                    "input": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"type\":\"object\",\"properties\":{\"data\":{\"type\":\"object\",\"properties\":{\"root\":{\"type\":\"object\",\"properties\":{\"rootArray\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{}}}}}}}}}",
+                                        "fe_metadata": "{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"type\":\"object\",\"properties\":{\"data\":{\"type\":\"object\",\"properties\":{\"root\":{\"type\":\"object\",\"properties\":{\"rootArray\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{}}}}}}}}}"
+                                    }
+                                },
+                                "output": {
+                                    "output": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"type\":\"object\",\"properties\":{\"exist\":{\"type\":\"boolean\"},\"data\":{\"type\":\"object\",\"properties\":{\"root\":{\"type\":\"object\",\"properties\":{\"rootArray\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{}}}}}}}}}",
+                                        "fe_metadata": "{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"type\":\"object\",\"properties\":{\"exist\":{\"type\":\"boolean\"},\"data\":{\"type\":\"object\",\"properties\":{\"root\":{\"type\":\"object\",\"properties\":{\"rootArray\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{}}}}}}}}}"
+                                    }
+                                },
+                                "settings": {
+                                    "objectSchema": {
+                                        "type": "json",
+                                        "value": "{\n    \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n    \"type\": \"object\",\n    \"properties\": {\n        \"root\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"rootArray\": {\n                    \"type\": \"array\",\n                    \"items\": {\n                        \"type\": \"object\",\n                        \"properties\": {}\n                    }\n                }\n            }\n        }\n    }\n}",
+                                        "fe_metadata": "{\n    \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n    \"type\": \"object\",\n    \"properties\": {\n        \"root\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"rootArray\": {\n                    \"type\": \"array\",\n                    \"items\": {\n                        \"type\": \"object\",\n                        \"properties\": {}\n                    }\n                }\n            }\n        }\n    }\n}"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "CopyOfLogMessage",
+                        "name": "CopyOfLogMessage",
+                        "description": "Simple Log Message Activity",
+                        "activity": {
+                            "ref": "#log",
+                            "input": {
+                                "Log Level": "INFO",
+                                "flowInfo": false,
+                                "message": "=string.concat(\"The length of array at get after set\", coerce.toString(array.count($activity[GetAfterSet].output.data.root.rootArray)))"
+                            }
+                        }
+                    }
+                ],
+                "metadata": {
+                    "input": [
+                        {
+                            "name": "root",
+                            "type": "object",
+                            "schema": {
+                                "type": "json",
+                                "value": "{\"elementToSortOver\":{\"type\":\"string\"},\"myIndex\":{\"type\":\"number\"}}"
+                            }
+                        }
+                    ],
+                    "output": [],
+                    "fe_metadata": {
+                        "input": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"root\":{\"type\":\"object\",\"properties\":{\"elementToSortOver\":{\"type\":\"string\"},\"myIndex\":{\"type\":\"number\"}}}}}"
+                    }
+                }
+            }
+        },
+        {
+            "id": "flow:Sorter",
+            "data": {
+                "name": "Sorter",
+                "description": "The sorting logic using selection sort as mechanism and the main process called for sorting data",
+                "links": [
+                    {
+                        "id": 1,
+                        "from": "SetArray",
+                        "to": "SorterSubflow",
+                        "type": "default"
+                    },
+                    {
+                        "id": 2,
+                        "from": "SorterSubflow",
+                        "to": "GetSortedArray",
+                        "type": "default"
+                    },
+                    {
+                        "id": 3,
+                        "from": "GetSortedArray",
+                        "to": "DeleteSharedDataArray",
+                        "type": "default"
+                    },
+                    {
+                        "id": 4,
+                        "from": "DeleteSharedDataArray",
+                        "to": "Return",
+                        "type": "default"
+                    }
+                ],
+                "tasks": [
+                    {
+                        "id": "SetArray",
+                        "name": "SetArray",
+                        "description": "Enable sharing of data within or across flows in the application",
+                        "activity": {
+                            "ref": "#shareddata",
+                            "settings": {
+                                "scope": "Application",
+                                "operation": "SET",
+                                "type": "object",
+                                "objectSchema": "{\n    \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n    \"type\": \"object\",\n    \"properties\": {\n        \"root\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"rootArray\": {\n                    \"type\": \"array\",\n                    \"items\": {\n                        \"type\": \"object\",\n                        \"properties\": {}\n                    }\n                }\n            }\n        }\n    }\n}"
+                            },
+                            "input": {
+                                "key": "MyArray",
+                                "input": {
+                                    "mapping": {
+                                        "data": {
+                                            "root": {
+                                                "rootArray": {
+                                                    "@foreach($flow.root.rootArray, rootArray)": {
+                                                        "=": "$loop"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "schemas": {
+                                "input": {
+                                    "input": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"type\":\"object\",\"properties\":{\"data\":{\"type\":\"object\",\"properties\":{\"root\":{\"type\":\"object\",\"properties\":{\"rootArray\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{}}}}}}}}}",
+                                        "fe_metadata": "{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"type\":\"object\",\"properties\":{\"data\":{\"type\":\"object\",\"properties\":{\"root\":{\"type\":\"object\",\"properties\":{\"rootArray\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{}}}}}}}}}"
+                                    }
+                                },
+                                "output": {
+                                    "output": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"type\":\"object\",\"properties\":{\"exist\":{\"type\":\"boolean\"},\"data\":{\"type\":\"string\"}}}",
+                                        "fe_metadata": "{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"type\":\"object\",\"properties\":{\"exist\":{\"type\":\"boolean\"},\"data\":{\"type\":\"string\"}}}"
+                                    }
+                                },
+                                "settings": {
+                                    "objectSchema": {
+                                        "type": "json",
+                                        "value": "{\n    \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n    \"type\": \"object\",\n    \"properties\": {\n        \"root\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"rootArray\": {\n                    \"type\": \"array\",\n                    \"items\": {\n                        \"type\": \"object\",\n                        \"properties\": {}\n                    }\n                }\n            }\n        }\n    }\n}",
+                                        "fe_metadata": "{\n    \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n    \"type\": \"object\",\n    \"properties\": {\n        \"root\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"rootArray\": {\n                    \"type\": \"array\",\n                    \"items\": {\n                        \"type\": \"object\",\n                        \"properties\": {}\n                    }\n                }\n            }\n        }\n    }\n}"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "SorterSubflow",
+                        "name": "SorterSubflow",
+                        "description": "Simple SubFlow Activity",
+                        "type": "iterator",
+                        "settings": {
+                            "iterate": "=$flow.root.rootArray",
+                            "accumulate": false
+                        },
+                        "activity": {
+                            "ref": "#subflow",
+                            "settings": {
+                                "flowURI": "res://flow:SorterSubProcess"
+                            },
+                            "input": {
+                                "root": {
+                                    "mapping": {
+                                        "elementToSortOver": "=$flow.root.elementToSortOver",
+                                        "myIndex": "=$iteration[index]"
+                                    }
+                                }
+                            },
+                            "schemas": {
+                                "input": {
+                                    "input": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"root\":{\"type\":\"object\",\"properties\":{\"elementToSortOver\":{\"type\":\"string\"},\"myIndex\":{\"type\":\"number\"}}}}}",
+                                        "fe_metadata": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"root\":{\"type\":\"object\",\"properties\":{\"elementToSortOver\":{\"type\":\"string\"},\"myIndex\":{\"type\":\"number\"}}}}}"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "GetSortedArray",
+                        "name": "GetSortedArray",
+                        "description": "Enable sharing of data within or across flows in the application",
+                        "activity": {
+                            "ref": "#shareddata",
+                            "settings": {
+                                "scope": "Application",
+                                "operation": "GET",
+                                "type": "object",
+                                "objectSchema": "{\n    \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n    \"type\": \"object\",\n    \"properties\": {\n        \"root\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"rootArray\": {\n                    \"type\": \"array\",\n                    \"items\": {\n                        \"type\": \"object\",\n                        \"properties\": {}\n                    }\n                }\n            }\n        }\n    }\n}"
+                            },
+                            "input": {
+                                "key": "MyArray"
+                            },
+                            "schemas": {
+                                "input": {
+                                    "input": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"type\":\"object\",\"properties\":{\"data\":{\"type\":\"object\",\"properties\":{\"root\":{\"type\":\"object\",\"properties\":{\"rootArray\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{}}}}}}}}}",
+                                        "fe_metadata": "{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"type\":\"object\",\"properties\":{\"data\":{\"type\":\"object\",\"properties\":{\"root\":{\"type\":\"object\",\"properties\":{\"rootArray\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{}}}}}}}}}"
+                                    }
+                                },
+                                "output": {
+                                    "output": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"type\":\"object\",\"properties\":{\"exist\":{\"type\":\"boolean\"},\"data\":{\"type\":\"object\",\"properties\":{\"root\":{\"type\":\"object\",\"properties\":{\"rootArray\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{}}}}}}}}}",
+                                        "fe_metadata": "{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"type\":\"object\",\"properties\":{\"exist\":{\"type\":\"boolean\"},\"data\":{\"type\":\"object\",\"properties\":{\"root\":{\"type\":\"object\",\"properties\":{\"rootArray\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{}}}}}}}}}"
+                                    }
+                                },
+                                "settings": {
+                                    "objectSchema": {
+                                        "type": "json",
+                                        "value": "{\n    \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n    \"type\": \"object\",\n    \"properties\": {\n        \"root\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"rootArray\": {\n                    \"type\": \"array\",\n                    \"items\": {\n                        \"type\": \"object\",\n                        \"properties\": {}\n                    }\n                }\n            }\n        }\n    }\n}",
+                                        "fe_metadata": "{\n    \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n    \"type\": \"object\",\n    \"properties\": {\n        \"root\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"rootArray\": {\n                    \"type\": \"array\",\n                    \"items\": {\n                        \"type\": \"object\",\n                        \"properties\": {}\n                    }\n                }\n            }\n        }\n    }\n}"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "DeleteSharedDataArray",
+                        "name": "DeleteSharedDataArray",
+                        "description": "Enable sharing of data within or across flows in the application",
+                        "activity": {
+                            "ref": "#shareddata",
+                            "settings": {
+                                "scope": "Application",
+                                "operation": "DELETE",
+                                "type": "object",
+                                "objectSchema": "{\n    \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n    \"type\": \"object\",\n    \"properties\": {\n        \"root\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"rootArray\": {\n                    \"type\": \"array\",\n                    \"items\": {\n                        \"type\": \"object\",\n                        \"properties\": {}\n                    }\n                }\n            }\n        }\n    }\n}"
+                            },
+                            "input": {
+                                "key": "MyArray"
+                            },
+                            "schemas": {
+                                "input": {
+                                    "input": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"type\":\"object\",\"properties\":{\"data\":{\"type\":\"object\",\"properties\":{\"root\":{\"type\":\"object\",\"properties\":{\"rootArray\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{}}}}}}}}}",
+                                        "fe_metadata": "{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"type\":\"object\",\"properties\":{\"data\":{\"type\":\"object\",\"properties\":{\"root\":{\"type\":\"object\",\"properties\":{\"rootArray\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{}}}}}}}}}"
+                                    }
+                                },
+                                "output": {
+                                    "output": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"type\":\"object\",\"properties\":{\"exist\":{\"type\":\"boolean\"}}}",
+                                        "fe_metadata": "{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"type\":\"object\",\"properties\":{\"exist\":{\"type\":\"boolean\"}}}"
+                                    }
+                                },
+                                "settings": {
+                                    "objectSchema": {
+                                        "type": "json",
+                                        "value": "{\n    \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n    \"type\": \"object\",\n    \"properties\": {\n        \"root\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"rootArray\": {\n                    \"type\": \"array\",\n                    \"items\": {\n                        \"type\": \"object\",\n                        \"properties\": {}\n                    }\n                }\n            }\n        }\n    }\n}",
+                                        "fe_metadata": "{\n    \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n    \"type\": \"object\",\n    \"properties\": {\n        \"root\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"rootArray\": {\n                    \"type\": \"array\",\n                    \"items\": {\n                        \"type\": \"object\",\n                        \"properties\": {}\n                    }\n                }\n            }\n        }\n    }\n}"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "Return",
+                        "name": "Return",
+                        "description": "Simple Return Activity",
+                        "activity": {
+                            "ref": "#actreturn",
+                            "settings": {
+                                "mappings": {
+                                    "root": {
+                                        "mapping": {
+                                            "rootArray": {
+                                                "@foreach($activity[GetSortedArray].output.data.root.rootArray, rootArray)": {
+                                                    "=": "$loop"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ],
+                "metadata": {
+                    "input": [
+                        {
+                            "name": "root",
+                            "type": "object",
+                            "schema": {
+                                "type": "json",
+                                "value": "{\"rootArray\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{}}},\"elementToSortOver\":{\"type\":\"string\"}}"
+                            }
+                        }
+                    ],
+                    "output": [
+                        {
+                            "name": "root",
+                            "type": "object",
+                            "schema": {
+                                "type": "json",
+                                "value": "{\"rootArray\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{}}}}"
+                            }
+                        }
+                    ],
+                    "fe_metadata": {
+                        "input": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"root\":{\"type\":\"object\",\"properties\":{\"rootArray\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{}}},\"elementToSortOver\":{\"type\":\"string\"}}}}}",
+                        "output": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"root\":{\"type\":\"object\",\"properties\":{\"rootArray\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{}}}}}}}"
+                    }
+                }
+            }
+        }
+    ],
+    "properties": [
+        {
+            "name": "TCI-Gobal.Platform-API.get-apps",
+            "type": "string",
+            "value": "https://api.cloud.tibco.com/tci/v1/subscriptions/{subscriptionLocator}/apps"
+        },
+        {
+            "name": "TCI-Gobal.Platform-API.get-app-status",
+            "type": "string",
+            "value": "https://api.cloud.tibco.com/tci/v1/subscriptions/{subscriptionLocator}/apps/{appId}/status"
+        },
+        {
+            "name": "MAIL-Server.serverName",
+            "type": "string",
+            "value": "smtp.office365.com"
+        },
+        {
+            "name": "MAIL-Server.portNumber",
+            "type": "float64",
+            "value": 587
+        },
+        {
+            "name": "MAIL-Server.userName",
+            "type": "string",
+            "value": "BiogenAPIGatewayNotifications@biogen.com"
+        },
+        {
+            "name": "MAIL-Server.password",
+            "type": "string",
+            "value": "SECRET:IulijgPjdQDX0FA3QVgngQ=="
+        },
+        {
+            "name": "TCI-Gobal.Platform-API.get-app-instance-metrics",
+            "type": "string",
+            "value": "https://api.cloud.tibco.com/tci/v1/subscriptions/{subscriptionLocator}/apps/{appId}/monitoring/metrics/resource"
+        },
+        {
+            "name": "TCI-Gobal.Platform-API.scale-app",
+            "type": "string",
+            "value": "https://api.cloud.tibco.com/tci/v1/subscriptions/{subscriptionLocator}/apps/{appId}/scale"
+        },
+        {
+            "name": "TCI-Gobal.Platform_API_credentials.Oauth_Token",
+            "type": "string",
+            "value": "SECRET:ITh2FG6+o+qDVfUTP/snmA=="
+        },
+        {
+            "name": "TCI-Gobal.Platform_API_credentials.subscriptionLocator",
+            "type": "string",
+            "value": "0"
+        },
+        {
+            "name": "TCI-Gobal.Platform-API.get-app-metrics",
+            "type": "string",
+            "value": "https://api.cloud.tibco.com/tci/v1/subscriptions/{subscriptionLocator}/apps/{appId}/monitoring/metrics"
+        },
+        {
+            "name": "TCI-Gobal.UseCase_Properties.noOfDay_UnUsed",
+            "type": "float64",
+            "value": 1
+        },
+        {
+            "name": "TCI-Gobal.UseCase_Properties.scale-down",
+            "type": "boolean",
+            "value": true
+        },
+        {
+            "name": "TCI-Gobal.UseCase_Properties.email_notification",
+            "type": "boolean",
+            "value": true
+        }
+    ],
+    "schemas": {
+        "appListWithStatus": {
+            "type": "json",
+            "value": "{\n    \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n    \"type\": \"object\",\n    \"properties\": {\n        \"appList\": {\n            \"type\": \"array\",\n            \"items\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"appStatus\": {\n                        \"type\": \"string\"\n                    },\n                    \"appId\": {\n                        \"type\": \"string\"\n                    },\n                    \"appName\": {\n                        \"type\": \"string\"\n                    },\n                    \"instanceStatus\": {\n                        \"type\": \"object\",\n                        \"properties\": {\n                            \"running\": {\n                                \"type\": \"number\"\n                            },\n                            \"starting\": {\n                                \"type\": \"number\"\n                            },\n                            \"failed\": {\n                                \"type\": \"number\"\n                            },\n                            \"desired\": {\n                                \"type\": \"number\"\n                            },\n                            \"vpn\": {\n                                \"type\": \"number\"\n                            }\n                        }\n                    }\n                }\n            }\n        }\n    }\n}",
+            "fe_metadata": "{\n    \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n    \"type\": \"object\",\n    \"properties\": {\n        \"appList\": {\n            \"type\": \"array\",\n            \"items\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"appStatus\": {\n                        \"type\": \"string\"\n                    },\n                    \"appId\": {\n                        \"type\": \"string\"\n                    },\n                    \"appName\": {\n                        \"type\": \"string\"\n                    },\n                    \"instanceStatus\": {\n                        \"type\": \"object\",\n                        \"properties\": {\n                            \"running\": {\n                                \"type\": \"number\"\n                            },\n                            \"starting\": {\n                                \"type\": \"number\"\n                            },\n                            \"failed\": {\n                                \"type\": \"number\"\n                            },\n                            \"desired\": {\n                                \"type\": \"number\"\n                            },\n                            \"vpn\": {\n                                \"type\": \"number\"\n                            }\n                        }\n                    }\n                }\n            }\n        }\n    }\n}"
+        },
+        "appInstanceMetrics": {
+            "type": "json",
+            "value": "{\n    \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n    \"type\": \"array\",\n    \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n            \"instanceId\": {\n                \"type\": \"string\"\n            },\n            \"instanceMetrics\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"tci_app_instances_cpu\": {\n                        \"type\": \"array\",\n                        \"items\": {\n                            \"type\": \"object\",\n                            \"properties\": {\n                                \"labels\": {\n                                    \"type\": \"object\",\n                                    \"properties\": {\n                                        \"app_type\": {\n                                            \"type\": \"string\"\n                                        },\n                                        \"status\": {\n                                            \"type\": \"string\"\n                                        }\n                                    }\n                                },\n                                \"value\": {\n                                    \"type\": \"number\"\n                                }\n                            }\n                        }\n                    },\n                    \"tci_app_instances_cpu_range\": {\n                        \"type\": \"array\",\n                        \"items\": {\n                            \"type\": \"object\",\n                            \"properties\": {\n                                \"values\": {\n                                    \"type\": \"array\",\n                                    \"items\": {\n                                        \"type\": \"array\"\n                                    }\n                                }\n                            }\n                        }\n                    },\n                    \"tci_app_instances_failure_exes_range\": {\n                        \"type\": \"array\",\n                        \"items\": {\n                            \"type\": \"object\",\n                            \"properties\": {\n                                \"values\": {\n                                    \"type\": \"array\",\n                                    \"items\": {\n                                        \"type\": \"array\"\n                                    }\n                                }\n                            }\n                        }\n                    },\n                    \"tci_app_instances_memory\": {\n                        \"type\": \"array\",\n                        \"items\": {\n                            \"type\": \"object\",\n                            \"properties\": {\n                                \"labels\": {\n                                    \"type\": \"object\",\n                                    \"properties\": {\n                                        \"app_type\": {\n                                            \"type\": \"string\"\n                                        },\n                                        \"status\": {\n                                            \"type\": \"string\"\n                                        }\n                                    }\n                                },\n                                \"value\": {\n                                    \"type\": \"number\"\n                                }\n                            }\n                        }\n                    },\n                    \"tci_app_instances_memory_range\": {\n                        \"type\": \"array\",\n                        \"items\": {\n                            \"type\": \"object\",\n                            \"properties\": {\n                                \"values\": {\n                                    \"type\": \"array\",\n                                    \"items\": {\n                                        \"type\": \"array\"\n                                    }\n                                }\n                            }\n                        }\n                    },\n                    \"tci_app_instances_success_exes_range\": {\n                        \"type\": \"array\",\n                        \"items\": {\n                            \"type\": \"object\",\n                            \"properties\": {\n                                \"values\": {\n                                    \"type\": \"array\",\n                                    \"items\": {\n                                        \"type\": \"array\"\n                                    }\n                                }\n                            }\n                        }\n                    }\n                }\n            }\n        }\n    }\n}",
+            "fe_metadata": "{\n    \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n    \"type\": \"array\",\n    \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n            \"instanceId\": {\n                \"type\": \"string\"\n            },\n            \"instanceMetrics\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"tci_app_instances_cpu\": {\n                        \"type\": \"array\",\n                        \"items\": {\n                            \"type\": \"object\",\n                            \"properties\": {\n                                \"labels\": {\n                                    \"type\": \"object\",\n                                    \"properties\": {\n                                        \"app_type\": {\n                                            \"type\": \"string\"\n                                        },\n                                        \"status\": {\n                                            \"type\": \"string\"\n                                        }\n                                    }\n                                },\n                                \"value\": {\n                                    \"type\": \"number\"\n                                }\n                            }\n                        }\n                    },\n                    \"tci_app_instances_cpu_range\": {\n                        \"type\": \"array\",\n                        \"items\": {\n                            \"type\": \"object\",\n                            \"properties\": {\n                                \"values\": {\n                                    \"type\": \"array\",\n                                    \"items\": {\n                                        \"type\": \"array\"\n                                    }\n                                }\n                            }\n                        }\n                    },\n                    \"tci_app_instances_failure_exes_range\": {\n                        \"type\": \"array\",\n                        \"items\": {\n                            \"type\": \"object\",\n                            \"properties\": {\n                                \"values\": {\n                                    \"type\": \"array\",\n                                    \"items\": {\n                                        \"type\": \"array\"\n                                    }\n                                }\n                            }\n                        }\n                    },\n                    \"tci_app_instances_memory\": {\n                        \"type\": \"array\",\n                        \"items\": {\n                            \"type\": \"object\",\n                            \"properties\": {\n                                \"labels\": {\n                                    \"type\": \"object\",\n                                    \"properties\": {\n                                        \"app_type\": {\n                                            \"type\": \"string\"\n                                        },\n                                        \"status\": {\n                                            \"type\": \"string\"\n                                        }\n                                    }\n                                },\n                                \"value\": {\n                                    \"type\": \"number\"\n                                }\n                            }\n                        }\n                    },\n                    \"tci_app_instances_memory_range\": {\n                        \"type\": \"array\",\n                        \"items\": {\n                            \"type\": \"object\",\n                            \"properties\": {\n                                \"values\": {\n                                    \"type\": \"array\",\n                                    \"items\": {\n                                        \"type\": \"array\"\n                                    }\n                                }\n                            }\n                        }\n                    },\n                    \"tci_app_instances_success_exes_range\": {\n                        \"type\": \"array\",\n                        \"items\": {\n                            \"type\": \"object\",\n                            \"properties\": {\n                                \"values\": {\n                                    \"type\": \"array\",\n                                    \"items\": {\n                                        \"type\": \"array\"\n                                    }\n                                }\n                            }\n                        }\n                    }\n                }\n            }\n        }\n    }\n}"
+        },
+        "appMetricsSchema": {
+            "type": "json",
+            "value": "{\n    \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n    \"type\": \"object\",\n    \"properties\": {\n        \"tci_app_executions\": {\n            \"type\": \"array\",\n            \"items\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"value\": {\n                        \"type\": \"number\"\n                    },\n                    \"labels\": {\n                        \"type\": \"object\",\n                        \"properties\": {\n                            \"status\": {\n                                \"type\": \"string\"\n                            }\n                        }\n                    }\n                },\n                \"required\": [\n                    \"value\",\n                    \"labels\"\n                ]\n            }\n        },\n        \"tci_app_instances_cpu\": {\n            \"type\": \"array\",\n            \"items\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"value\": {\n                        \"type\": \"number\"\n                    },\n                    \"labels\": {\n                        \"type\": \"object\",\n                        \"properties\": {\n                            \"status\": {\n                                \"type\": \"string\"\n                            }\n                        }\n                    }\n                },\n                \"required\": [\n                    \"value\",\n                    \"labels\"\n                ]\n            }\n        },\n        \"tci_app_instances_memory\": {\n            \"type\": \"array\",\n            \"items\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"value\": {\n                        \"type\": \"number\"\n                    },\n                    \"labels\": {\n                        \"type\": \"object\",\n                        \"properties\": {\n                            \"status\": {\n                                \"type\": \"string\"\n                            }\n                        }\n                    }\n                },\n                \"required\": [\n                    \"value\",\n                    \"labels\"\n                ]\n            }\n        },\n        \"tci_app_since_last_execution\": {\n            \"type\": \"array\",\n            \"items\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"value\": {\n                        \"type\": \"number\"\n                    }\n                }\n            }\n        }\n    }\n}",
+            "fe_metadata": "{\n    \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n    \"type\": \"object\",\n    \"properties\": {\n        \"tci_app_executions\": {\n            \"type\": \"array\",\n            \"items\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"value\": {\n                        \"type\": \"number\"\n                    },\n                    \"labels\": {\n                        \"type\": \"object\",\n                        \"properties\": {\n                            \"status\": {\n                                \"type\": \"string\"\n                            }\n                        }\n                    }\n                },\n                \"required\": [\n                    \"value\",\n                    \"labels\"\n                ]\n            }\n        },\n        \"tci_app_instances_cpu\": {\n            \"type\": \"array\",\n            \"items\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"value\": {\n                        \"type\": \"number\"\n                    },\n                    \"labels\": {\n                        \"type\": \"object\",\n                        \"properties\": {\n                            \"status\": {\n                                \"type\": \"string\"\n                            }\n                        }\n                    }\n                },\n                \"required\": [\n                    \"value\",\n                    \"labels\"\n                ]\n            }\n        },\n        \"tci_app_instances_memory\": {\n            \"type\": \"array\",\n            \"items\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"value\": {\n                        \"type\": \"number\"\n                    },\n                    \"labels\": {\n                        \"type\": \"object\",\n                        \"properties\": {\n                            \"status\": {\n                                \"type\": \"string\"\n                            }\n                        }\n                    }\n                },\n                \"required\": [\n                    \"value\",\n                    \"labels\"\n                ]\n            }\n        },\n        \"tci_app_since_last_execution\": {\n            \"type\": \"array\",\n            \"items\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"value\": {\n                        \"type\": \"number\"\n                    }\n                }\n            }\n        }\n    }\n}"
+        },
+        "appListSchema": {
+            "type": "json",
+            "value": "{\n    \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n    \"type\": \"object\",\n    \"properties\": {\n        \"appList\": {\n            \"type\": \"array\",\n            \"items\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"appId\": {\n                        \"type\": \"string\"\n                    },\n                    \"appName\": {\n                        \"type\": \"string\"\n                    },\n                    \"app_since_last_execution\": {\n                        \"type\": \"string\"\n                    }\n                }\n            }\n        }\n    }\n}",
+            "fe_metadata": "{\n    \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n    \"type\": \"object\",\n    \"properties\": {\n        \"appList\": {\n            \"type\": \"array\",\n            \"items\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"appId\": {\n                        \"type\": \"string\"\n                    },\n                    \"appName\": {\n                        \"type\": \"string\"\n                    },\n                    \"app_since_last_execution\": {\n                        \"type\": \"string\"\n                    }\n                }\n            }\n        }\n    }\n}"
+        },
+        "inactiveDays_streaming_schem": {
+            "type": "json",
+            "value": "{\n    \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n    \"type\": \"object\",\n    \"properties\": {\n        \"appId\": {\n            \"type\": \"string\"\n        },\n        \"appName\": {\n            \"type\": \"string\"\n        },\n        \"inactive_days\": {\n            \"type\": \"number\"\n        }\n    }\n}",
+            "fe_metadata": "{\n    \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n    \"type\": \"object\",\n    \"properties\": {\n        \"appId\": {\n            \"type\": \"string\"\n        },\n        \"appName\": {\n            \"type\": \"string\"\n        },\n        \"inactive_days\": {\n            \"type\": \"number\"\n        }\n    }\n}"
+        },
+        "appListTCICount": {
+            "type": "json",
+            "value": "{\n    \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n    \"type\": \"object\",\n    \"properties\": {\n        \"appList\": {\n            \"type\": \"array\",\n            \"items\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"appId\": {\n                        \"type\": \"string\"\n                    },\n                    \"appName\": {\n                        \"type\": \"string\"\n                    },\n                    \"success\": {\n                        \"type\": \"string\"\n                    },\n                    \"failure\": {\n                        \"type\": \"string\"\n                    }\n                }\n            }\n        }\n    }\n}",
+            "fe_metadata": "{\n    \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n    \"type\": \"object\",\n    \"properties\": {\n        \"appList\": {\n            \"type\": \"array\",\n            \"items\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"appId\": {\n                        \"type\": \"string\"\n                    },\n                    \"appName\": {\n                        \"type\": \"string\"\n                    },\n                    \"success\": {\n                        \"type\": \"string\"\n                    },\n                    \"failure\": {\n                        \"type\": \"string\"\n                    }\n                }\n            }\n        }\n    }\n}"
+        }
+    },
+    "connections": {},
+    "contrib": "W3sicmVmIjoiZ2l0LnRpYmNvLmNvbS9naXQvcHJvZHVjdC9pcGFhcy93aS1jb250cmliLmdpdC9jb250cmlidXRpb25zL0dlbmVyYWwiLCJzM2xvY2F0aW9uIjoiVGliY28vR2VuZXJhbCJ9XQ=="
+}
