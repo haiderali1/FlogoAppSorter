@@ -3,12 +3,13 @@ The Repo consists of a flogo app json which can take in unsorted complex data an
 
 It also has a sample flow associated with it to understand how it works by the name <b>Sorter Example</b>
 
-Following is an Example 
-
-Input Array
+Following is an Example where count of different flows is provided as input and we are sorting it based on success count for each flow
+<br>
+<h4>Input Array</h4>
+<br>
 {
   "root": {
-    "elementToSortOver": "success",
+    <b>"elementToSortOver": "success"</b>,
     "rootArray": [
       {
         "appId": "os44ceaecrqz6vscwgpyrbwqj7iwgqax",
@@ -74,9 +75,12 @@ Input Array
   }
 }
 
+<br>
+<br>
+<br>
+<br>
 
-
-Output 
+<h4>Output Sorted Array</h4>
 {
   "root": {
     "rootArray": [
@@ -143,15 +147,27 @@ Output
     ]
   }
 }
+<br>
+<br>
+<br>
+<br>
 
-Please Note : It sorts in descing order if required to get in ascending do array.reverse()
+<h4>Please Note : It sorts in descing order if required to get in ascending do array.reverse()</h4>
+<br>
+<ul>
+Advantages:<br>
+<li>Does not require any external go module downloaded to work with it</li>
+<br>
+</ul>  
+<ul>
+Limitation:<br>
+  <li>For now it can sort on number data only</li>
+</ul>  
+<br>
+<br>
+<br>
+<br>
 
-Advantages
-Does not require any external go module downloaded to work with it
-
-Limitation
-For now it can sort on number data only 
-
-Feel free to use it in your flows 
-Citation is appreciated but not required :) 
-Hope it helps anyone who uses it 
+Feel free to use it in your flows. <br>
+Citation is appreciated but not required :) <br> 
+Hope it helps anyone who uses it <br>
